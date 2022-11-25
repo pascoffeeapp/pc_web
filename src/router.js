@@ -1,54 +1,98 @@
 import {createWebHistory,createRouter} from "vue-router";
-import Dashboard from "./components/contents/Dashboard.vue"
-import Menu from "./components/contents/Menu.vue"
-import Outlet from "./components/contents/Outlet.vue"
-import Role from "./components/contents/Role.vue"
-import Stock from "./components/contents/Stock.vue"
-import Table from "./components/contents/Table.vue"
-import User from "./components/contents/User.vue"
-import Wallet from "./components/contents/Wallet.vue"
+import Manager from "./views/manager/Manager.vue"
+import Dashboard from "./views/manager/contents/Dashboard.vue"
+import Menu from "./views/manager/contents/Menu.vue"
+import Outlet from "./views/manager/contents/Outlet.vue"
+import Role from "./views/manager/contents/Role.vue"
+import Stock from "./views/manager/contents/Stock.vue"
+import Table from "./views/manager/contents/Table.vue"
+import User from "./views/manager/contents/User.vue"
+import Wallet from "./views/manager/contents/Wallet.vue"
+import NotFound from "./views/manager/contents/NotFound.vue"
+
+import Login from "./views/auth/Login.vue"
+import Home from "./views/main/Home.vue"
 
 const routes=[
     {
         path: '/',
-        name: 'Dashboard',
-        component: Dashboard
+        name: 'Home',
+        components: {
+            default:  Home,
+        },
     },
     {
-        path: '/role',
-        name: 'Role',
-        component: Role
+        path: '/auth/login',
+        name: 'Login',
+        components: {
+            default:  Login,
+        },
     },
     {
-        path: '/user',
-        name: 'User',
-        component: User
-    },
-    {
-        path: '/table',
-        name: 'Table',
-        component: Table
-    },
-    {
-        path: '/menu',
-        name: 'Menu',
-        component: Menu
-    },
-    {
-        path: '/outlet',
-        name: 'Outlet',
-        component: Outlet
-    },
-    {
-        path: '/stock',
-        name: 'Stock',
-        component: Stock
-    },
-    {
-        path: '/wallet',
-        name: 'Wallet',
-        component: Wallet
-    },
+        path: '/manager',
+        components: {
+            default:  Manager,
+            contents: NotFound
+        },
+        children: [
+            {
+                path: 'dashboard',
+                name: 'Dashboard',
+                components: {
+                    contents:  Dashboard,
+                }
+            },
+            {
+                path: 'role',
+                name: 'Role',
+                components: {
+                    contents:  Role,
+                }
+            },
+            {
+                path: 'user',
+                name: 'User',
+                components: {
+                    contents:  User,
+                }
+            },
+            {
+                path: 'table',
+                name: 'Table',
+                components: {
+                    contents:  Table,
+                }
+            },
+            {
+                path: 'menu',
+                name: 'Menu',
+                components: {
+                    contents:  Menu,
+                }
+            },
+            {
+                path: 'outlet',
+                name: 'Outlet',
+                components: {
+                    contents:  Outlet,
+                }
+            },
+            {
+                path: 'stock',
+                name: 'Stock',
+                components: {
+                    contents:  Stock,
+                }
+            },
+            {
+                path: 'wallet',
+                name: 'Wallet',
+                components: {
+                    contents:  Wallet,
+                }
+            },
+        ],
+    }
 ]
 
 const router = createRouter({

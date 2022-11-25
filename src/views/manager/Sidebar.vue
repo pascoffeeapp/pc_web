@@ -1,7 +1,7 @@
 <template>
     <section class="sidebar">
         <center>
-            <img src="images/Logo_dasboard.png" class="profile_image" alt="Logo_dasboard">
+            <img src="/images/Logo_dasboard.png" class="profile_image" alt="Logo_dasboard">
             <div class="title_icon"><h4>KOPI<span> PAS</span></h4></div>
         </center>
         <div class="sidebar_menu"> 
