@@ -14,3 +14,6 @@ import Content from './Content.vue'
         <Content/>
     </div>
 </template>
+
+<style scoped>
+</style>
