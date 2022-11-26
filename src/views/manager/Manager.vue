@@ -8,7 +8,6 @@ import Content from './Content.vue'
 
 <template>
     <div>
-
         <Sidebar/>
         <Header/>
         <Content/>

@@ -13,6 +13,6 @@
     </div>  
 </template>
 
-<style scoped>
+<style>
     @import url('/css/dash_new.css');
 </style>
