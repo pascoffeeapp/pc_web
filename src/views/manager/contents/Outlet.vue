@@ -1,34 +1,10 @@
 <template>
-    <div>
-        <h1 @dblclick="gantiteks">Outlet</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et, beatae?</p> 
-        <a href="">{{teks}}</a>
-        <br>
-        <button @click="gantiteks">click</button>
-        <button @click="gantilagi">click</button>
-        <input type="number" v-model="teks">
+    <div class="container py-3">
+        <h1>Outlet</h1>
+        <div class="rounded shadow-sm p-3 bg-white">
+            <div class="container mb-5">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus cum tenetur et ad. Magnam adipisci temporibus, eaque rerum omnis modi, nesciunt asperiores sed eum ea tenetur vel eveniet culpa. Unde!</p>
+            </div>
+        </div>
     </div>
 </template>
-
-<script>
-
-export default {
-    data() {
-        return {
-            teks:'woo lom nyan',
-            
-        }
-    },
-    methods: {
-        gantiteks(){
-            this.teks = 'laen lom'
-        },
-        gantilagi(){
-            // this.teks = 'nyanban keuh'
-            this.teks = 'cie'
-        }
-    },
-    
-}
-
-</script>

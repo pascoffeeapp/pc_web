@@ -1,23 +1,38 @@
 <template>
-    <section class="sidebar">
-        <center>
-            <img src="/images/Logo_dasboard.png" class="profile_image" alt="Logo_dasboard">
-            <div class="title_icon"><h4>KOPI<span> PAS</span></h4></div>
-        </center>
-        <div class="sidebar_menu"> 
-            <router-link :to="{name:'Dashboard'}"><i class="fa-sharp fa-solid fa-house"></i><span>Dashboard</span></router-link>
-            <router-link :to="{name:'Role'}"><i class="fas fa-user"></i><span>Role</span></router-link>
-            <router-link :to="{name:'User'}"><i class="fas fa-users"></i><span>User</span></router-link>
-            <router-link :to="{name:'Table'}"><i class="fa-solid fa-chair"></i><span>Table</span></router-link>
-            <router-link :to="{name:'Menu'}"><i class="fa-solid fa-utensils"></i><span>Menu</span></router-link>
-            <router-link :to="{name:'Outlet'}"><i class="fas fa-shop"></i><span>Outlet</span></router-link>
-            <router-link :to="{name:'Stock'}"><i class='fas fa-box'></i><span>Stock</span></router-link>
-            <router-link :to="{name:'Wallet'}"><i class="fas fa-wallet"></i><span>Wallet</span></router-link>
+        <div id="sidebar">
+            <div><img src="logo-kopipas.svg" alt="" srcset=""></div>
+            <router-link :to="{name:'Dashboard'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-tachometer-alt"></i></div>
+                <div class="text">Dashboard</div>
+            </router-link>
+            <router-link :to="{name:'Role'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-light fa-user"></i></div>
+                <div class="text">Role</div>
+            </router-link>
+            <router-link :to="{name:'User'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-light fa-users"></i></div>
+                <div class="text">User</div>
+            </router-link>
+            <router-link :to="{name:'Table'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-light fa-chair"></i></div>
+                <div class="text">Tables</div>
+            </router-link>
+            <router-link :to="{name:'Menu'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-coffee"></i></div>
+                <div class="text">Menu</div>
+            </router-link>
+            <router-link :to="{name:'Outlet'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-light fa-store"></i></div>
+                <div class="text">Outlet</div>
+            </router-link>
+            <router-link :to="{name:'Stock'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-light fa-box"></i></div>
+                <div class="text">Stock</div>
+            </router-link>
+            <router-link :to="{name:'Wallet'}" class="sidebar-item">
+                <div class="icon"><i class="fa fa-wallet"></i></div>
+                <div class="text">Wallet</div>
+            </router-link>
         </div>
-    </section>
-
+        <!-- <div class="devider"></div> -->
 </template>
-
-<style scoped>
-    @import url('/css/dash_new.css');
-</style>
