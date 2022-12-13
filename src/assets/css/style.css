@@ -53,11 +53,11 @@
 #wrapper #sidebar {
   background-color: #E1CFC1;
   transition: 0.3s;
-  background-image: url("/src/assets/img/illustration.png");
-  background-size: 100%;
+  background-image: url("../img/illustration.png");
+  background-size: 70%;
   background-repeat: no-repeat;
   background-position: bottom;
-  padding-top: 0;
+  padding-top: 5px;
 }
 #wrapper #sidebar .sidebar-item {
   text-decoration: none;
@@ -95,7 +95,7 @@
 #wrapper #content {
   transition: 0.3s;
   background-color: #FFF8EA;
-  background-image: url("/src/assets/img/coffee_content.svg");
+  background-image: url("../img/coffee_content.svg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: right bottom;
