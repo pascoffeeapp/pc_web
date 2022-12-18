@@ -9,7 +9,7 @@
 import { AuthStore } from './stores/Auth';
 export default {
   mounted() {
-    AuthStore().instanceToken();
+    AuthStore().loadUser();
   }
 }
 </script>

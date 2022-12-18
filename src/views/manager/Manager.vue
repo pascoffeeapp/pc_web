@@ -14,6 +14,7 @@ import Content from './Content.vue'
 
 <script>
 import { AuthStore } from '../../stores/Auth';
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -21,7 +22,17 @@ export default {
         }
     },
     mounted() {
-        if (!AuthStore().isAuthenticated()) {
+        if (AuthStore().isAuthenticated()) {
+            axios.get('/auth/me')
+            .catch(err => {
+                if (err.response) {
+                    if (err.response.data) {
+                        AuthStore().logout();
+                        this.$router.replace({name: 'Login'})
+                    }
+                }
+            })
+        }else {
             this.$router.replace({name: 'Login'})
         }
     },

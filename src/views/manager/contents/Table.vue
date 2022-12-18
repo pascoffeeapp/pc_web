@@ -10,12 +10,10 @@
                     <div class="row row-cols-2">
                         <div class="col-sm-7">
                             <!-- + Add Button -->
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AddTable">
+                            <button type="button" class="btn btn-success" @click="openAddTable">
                                     + Add
                             </button>
 
-                            <!-- Modal -->
-                            <ModalAddTable @success="addTable"/>
                         </div>
                         <div class="col-sm-3 ms-auto">
                             <form class="d-flex" role="search">
@@ -57,19 +55,45 @@
             </div>
         </div>
 
-        <!-- Modal Edit Table -->
-        <div class="modal fade" id="EditTable" tabindex="-1" aria-labelledby="EditTablelLabel" aria-hidden="true">
+        <!-- Modal Add Table -->
+        <div class="modal fade" id="modalAddTable" tabindex="-1" aria-labelledby="modalAddTableLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="EditTablelLabe">Edit Table</h1>
+                        <h1 class="modal-title fs-5" id="modalAddTableLabel">Add Table</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label"><b>Table Code:</b></label>
+                            <input type="email" class="form-control" placeholder="Type here..." v-model="form_add.form.code">
+                            <div class="small text-danger" v-for="(v, i) in form_add.errors.code" :key="i">{{ v }}</div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" @click="addTable">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Edit Table -->
+        <div class="modal fade" id="modalEditTable" tabindex="-1" aria-labelledby="modalEditTablelLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalEditTablelLabe">Edit Table</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
     
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Code: </b></label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type here" v-model="form_edit.code">
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type here" v-model="form_edit.form.code">
+                            <div class="small text-danger" v-for="(v, i) in form_edit.errors.code" :key="i">{{ v }}</div>
                         </div>
     
                     </div>
@@ -94,15 +118,60 @@ export default {
     data() {
         return {
             tables: [],
-            form_edit: {
-                code: '',
+            form_add : {
+                form: {
+                    code: ''
+                },
+                errors: {
+                    code: []
+                },
             },
-            indexModalEditTable: null,
+            form_edit: {
+                index: null,
+                form: {
+                    code: ''
+                },
+                errors: {
+                    code: []
+                },
+            },
         }
     },
     methods: {
-        addTable(data) {
-            this.tables.push(data);
+        addTable() {
+            axios.post('/table', this.form_add.form)
+            .then(res => {
+                let data = res.data;
+                if (data.status) {
+                    Swal.fire(
+                        'Success',
+                        data.message,
+                        'success'
+                    ).then((res2) => {
+                        this.form_add.form.code = '';
+                        this.tables.push(data['body']);
+                        $('#modalAddTable').modal('hide');
+                    })
+                }
+            })
+            .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
+                if (err) {
+                    let data = err.response.data;
+                    if (err.response.status == 403) {
+                        for (const key in this.form_add.errors) {
+                            this.form_add.errors[key] = data.body[key];
+                        }
+                    }
+                }
+            })
+        },
+        openAddTable() {
+            $(`#modalAddTable`).modal(`show`);
         },
         getData() {
             axios.get('/table')
@@ -117,7 +186,7 @@ export default {
         deleteTable(index) {
             let table = this.tables[index];
             Swal.fire({
-                title: 'Do you want to delete it?',
+                title: 'Apakah anda yakin ingin menghapus?',
                 showDenyButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -131,17 +200,25 @@ export default {
                     })
                 }
             })
+            .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
+            })
         },
         openEditTable(index) {
-            this.indexModalEditTable = index;
-            this.form_edit.code = this.tables[index].code;
-            $('#EditTable').modal('show');
+            this.form_edit.index = index;
+            this.form_edit.form.code = this.tables[index].code;
+            $('#modalEditTable').modal('show');
         },
         updateTable() {
-            if (this.indexModalEditTable != null) {
-                let index = this.indexModalEditTable;
+            if (this.form_edit.index != null) {
+                let index = this.form_edit.index;
                 let table = this.tables[index];
-                axios.post('/table/'+table.id, this.form_edit)
+                $('#modalEditTable').modal('hide');
+                axios.post('/table/'+table.id, this.form_edit.form)
                 .then(res => {
                     let data = res.data;
                     if (data.status) {
@@ -150,19 +227,23 @@ export default {
                             data.message,
                             'success'
                         ).then((res2) => {
-                            this.tables[index].code = this.form_edit.code;
-                            this.form_edit.code = '';
-                            $('#EditTable').modal('hide');
-                            this.indexModalEditTable = null;
+                            this.tables[index] = data.body;
+                            this.form_edit.form.code = '';
+                            this.form_edit.index = null;
                         })
                     }
                 })
                 .catch(err => {
+                    if (err.response) {
+                        if (err.response.status != 403) {
+                            Swal.fire('GAGAL', err.response.data.message, 'error')
+                        }
+                    }
                     if (err) {
                         let data = err.response.data;
                         if (err.response.status == 403) {
-                            for (const key in this.errors) {
-                                this.errors[key] = data.body[key];
+                            for (const key in this.form_edit.errors) {
+                                this.form_edit.errors[key] = data.body[key];
                             }
                         }
                     }

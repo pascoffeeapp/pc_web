@@ -1,22 +1,26 @@
 import { defineStore } from "pinia";
 import axios from 'axios';
 
-// axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:8000/api/";
-// axios.defaults.baseURL = "https://kopipas.policyservices.site/api/";
 export const AuthStore = defineStore('auth', {
     state: () => ({
-        // authenticated: false,
-        // token: "",
+        user: null,
     }),
     actions: {
         getToken() {
             return window.localStorage.getItem('_token');
         },
-        instanceToken() {
+        loadUser() {
             if (this.isAuthenticated()) {
-                axios.defaults.headers['Authorization'] = `Bearer ${ this.getToken() }`;
+                axios.get('/auth/me')
+                .then(res => {
+                    if (res.data.status) {
+                        this.$state.user = res.data.body;
+                    }
+                })
             }
+        },
+        getUser() {
+            return this.user;
         },
         isAuthenticated() {
             let _token = window.localStorage.getItem('_token');
@@ -27,7 +31,10 @@ export const AuthStore = defineStore('auth', {
             .then((res) => {
                 let _token = res.data.body.token;
                 window.localStorage.setItem('_token', _token);
-                this.instanceToken();
+                axios.defaults.headers['Content-Type'] = `multipart/form-data`;
+                axios.defaults.headers['Accept'] = `application/json`;
+                axios.defaults.headers['Authorization'] = `Bearer ${ _token }`;
+                this.loadUser();
                 success(_token);
             }).catch((err) => {
                 error(err)
@@ -37,10 +44,10 @@ export const AuthStore = defineStore('auth', {
             axios.post('/auth/logout')
             .then((res) => {
                 window.localStorage.removeItem('_token');
-                success(res);
+                if (success) success(res);
             }).catch((err) => {
                 window.localStorage.removeItem('_token');
-                error(err)
+                if (error) error(err)
             })
         }
     },

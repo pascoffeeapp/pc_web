@@ -200,6 +200,11 @@ export default {
                 }
             })
             .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
                 if (err) {
                     let data = err.response.data;
                     if (err.response.status == 403) {
@@ -245,6 +250,13 @@ export default {
                     })
                 }
             })
+            .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
+            })
         },
         openAddUser() {
             this.getRoles();
@@ -281,6 +293,11 @@ export default {
                     }
                 })
                 .catch(err => {
+                    if (err.response) {
+                        if (err.response.status != 403) {
+                            Swal.fire('GAGAL', err.response.data.message, 'error')
+                        }
+                    }
                     if (err) {
                         let data = err.response.data;
                         if (err.response.status == 403) {

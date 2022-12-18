@@ -1,40 +1,94 @@
 <template>
     <div id="sidebar">
-        <router-link :to="{name:'Dashboard'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-tachometer-alt"></i></div>
-            <div class="text">Dashboard</div>
-        </router-link>
-        <router-link :to="{name:'Role'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-light fa-user"></i></div>
-            <div class="text">Role</div>
-        </router-link>
-        <router-link :to="{name:'User'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-light fa-users"></i></div>
-            <div class="text">User</div>
-        </router-link>
-        <router-link :to="{name:'Table'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-light fa-chair"></i></div>
-            <div class="text">Tables</div>
-        </router-link>
-        <router-link :to="{name:'Menu'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-coffee"></i></div>
-            <div class="text">Menu</div>
-        </router-link>
-        <router-link :to="{name:'Outlet'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-light fa-store"></i></div>
-            <div class="text">Outlet</div>
-        </router-link>
-        <router-link :to="{name:'Stock'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-light fa-box"></i></div>
-            <div class="text">Stock</div>
-        </router-link>
-        <router-link :to="{name:'Wallet'}" class="sidebar-item">
-            <div class="icon"><i class="fa fa-wallet"></i></div>
-            <div class="text">Wallet</div>
-        </router-link>
-        <router-link :to="{name:'Takeaway'}" class="sidebar-item">
-            <div class="icon"><i class="fas fa-shopping-bag"></i></div>
-            <div class="text">Takeaway</div>
+        <router-link v-for="(v, i) in navigations" :key="i" :to="{name: v.route}" class="sidebar-item">
+            <div class="icon"><i :class="`fa ${v.icon}`"></i></div>
+            <div class="text">{{ v.text }}</div>
         </router-link>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+import { AuthStore } from '../../stores/Auth';
+
+
+let navs = [
+    {
+        route: 'Dashboard',
+        text: 'Dashboard',
+        icon: 'fa-tachometer-alt',
+        permission: 'manager.dashboard',
+    },
+    {
+        route: 'Role',
+        text: 'Role',
+        icon: 'fa-user-shield',
+        permission: 'manager.role',
+    },
+    {
+        route: 'User',
+        text: 'User',
+        icon: 'fa-users',
+        permission: 'manager.user',
+    },
+    {
+        route: 'Table',
+        text: 'Table',
+        icon: 'fa-chair',
+        permission: 'manager.table',
+    },
+    {
+        route: 'Outlet',
+        text: 'Outlet',
+        icon: 'fa-store',
+        permission: 'manager.outlet',
+    },
+    {
+        route: 'Menu',
+        text: 'Menu',
+        icon: 'fa-coffee',
+        permission: 'manager.menu',
+    },
+    {
+        route: 'Takeaway',
+        text: 'Takeaway',
+        icon: 'fa-shopping-bag',
+        permission: 'manager.takeaway',
+    },
+]
+
+export default {
+    data() {
+        return {
+            navigations: [],
+            user: null
+        }
+    },
+    methods: {
+        loadNavs() {
+            axios.get('/role/'+this.user.id)
+            .then(res => {
+                if (res.data.status) {
+                    let perms = res.data.body.permissions;
+                    perms.forEach(perm => {
+                        navs.forEach(nav => {
+                            if (nav.permission == perm.key) {
+                                this.navigations.push(nav);
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    },
+    mounted() {
+        axios.get('/auth/me')
+        .then(res => {
+            if (res.data.status) {
+                this.user = res.data.body;
+                this.loadNavs();
+            }
+        })
+    }
+}
+</script>
