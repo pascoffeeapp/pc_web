@@ -26,7 +26,7 @@
 
                 <!--Table content-->
                 <table class="table table-bordered">
-                    <thead>
+                    <thead class="table-light">
                         <tr>
                             <th class="col-sm-2">#</th>
                             <th class="col-sm-2">Code Table</th>

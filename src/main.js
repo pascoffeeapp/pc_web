@@ -7,8 +7,8 @@ import router from './router.js'
 const pinia = createPinia();
 const app = createApp(App);
 
-// axios.defaults.baseURL = "https://kopipas.policyservices.site/api/";
-axios.defaults.baseURL = "http://localhost:8000/api/";
+axios.defaults.baseURL = "https://kopipas.policyservices.site/api/";
+// axios.defaults.baseURL = "http://localhost:8000/api/";
 
 let _token = window.localStorage.getItem('_token');
 if (_token) {

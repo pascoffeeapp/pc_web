@@ -70,7 +70,7 @@
             
             <!--Table content-->
             <table class="table table-bordered">
-                <thead>
+                <thead class="table-light">
                     <tr>
                         <th class="col-sm-1">#</th>
                         <th class="col-sm-5">Name</th>
