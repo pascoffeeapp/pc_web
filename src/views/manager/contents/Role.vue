@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-sm-3 ms-auto">
                         <form class="d-flex" role="search">
-                            <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
@@ -86,12 +86,12 @@
                         <th scope="row">{{ i+1 }}</th>
                         <th scope="row">{{ v.name }}</th>
                         <td>
-                            <button type="button" class="btn btn-warning w-100" @click="openEditRole(i)">
+                            <button type="button" :disabled="v.id == user.role_id" class="btn btn-warning w-100" @click="openEditRole(i)">
                                 <i class="fa fa-solid fa-pen-to-square"></i>
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger w-100" @click="deleteRole(i)">
+                            <button type="button" :disabled="v.id == user.role_id" class="btn btn-danger w-100" @click="deleteRole(i)">
                                 <i class="fa fa-solid fa-trash-can"></i>
                             </button>
                         </td>
@@ -104,9 +104,9 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalEditRoleLabel">Edit Peran</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                        <h1 class="modal-title fs-5" id="modalEditRoleLabel">Edit Peran</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                         <div class="modal-body">
                             
                             <div class="mb-3">
@@ -127,7 +127,7 @@
                                 <tbody>
                                     <tr v-for="(v, i) in form_edit.permissions" :key="i">
                                         <td>
-                                            <input type="checkbox" :checked="v.checked" :value="v.id">
+                                            <input type="checkbox" :value="v.id" :checked="v.checked" ref="permissions">
                                         </td>
                                         <td>
                                             {{v.key}}
@@ -154,6 +154,9 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 export default {
+    props: {
+        user: Object,
+    },
     data() {
         return {
             roles: [],
@@ -183,8 +186,8 @@ export default {
         }
     },
     methods: {
-        getPermissions() {
-            axios.get(`/permission`)
+        async getPermissions() {
+            await axios.get(`/permission`)
             .then(res => {
                 if (res.data[`status`]) {
                     this.permissions = res.data[`data`];
@@ -193,20 +196,14 @@ export default {
         },
         getPermissionsForEdit() {
             let role = this.roles[this.form_edit.index];
-            axios.get(`/role/${role.id}`)
-            .then(res => {
-                let permissions = res.data['body']['permissions'];
-                this.form_edit.permissions = [...this.permissions];
-
-                for (const perm of this.form_edit.permissions) {
-                    perm.checked = false;
-                    for (const v of permissions) {
-                        if (v.id == perm.id) {
-                            perm.checked = true;
-                        }
-                    }
-                }
+            this.form_edit.permissions = this.permissions.slice();
+            this.form_edit.permissions.forEach(perm => {
+                perm.checked = false;
+                role.permissions.forEach(perm2 => {
+                    if (perm.id == perm2.id) perm.checked = true;
+                })
             })
+            
         },
         getRoles() {
             axios.get(`/role`)
@@ -220,13 +217,13 @@ export default {
             this.getPermissions();
             $(`#modalAddRole`).modal(`show`);
         },
-        openEditRole(index) {
+        async openEditRole(index) {
             let role = this.roles[index];
-            this.getPermissions();
+            await this.getPermissions();
             this.form_edit.index = index;
-            this.form_edit.form.name =  role.name;
-            this.getPermissionsForEdit();
+            this.form_edit.form.name = role.name;
             $(`#modalEditRole`).modal(`show`);
+            this.getPermissionsForEdit();
         },
         addRole() {
             axios.post(`/role`, this.form_add.form)
@@ -263,6 +260,9 @@ export default {
         },
         updateRole() {
             let role = this.roles[this.form_edit.index];
+            this.$refs.permissions.forEach(perm => {
+                if (perm.checked) this.form_edit.form.permissions.push(perm.value);
+            })
             axios.post(`/role/${role.id}`, this.form_edit.form)
             .then(res => {
                 if (res.data[`status`]) {

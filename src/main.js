@@ -17,4 +17,5 @@ if (_token) {
     axios.defaults.headers['Authorization'] = `Bearer ${ _token }`;
 }
 
+
 app.use(pinia).use(router).mount('#app')

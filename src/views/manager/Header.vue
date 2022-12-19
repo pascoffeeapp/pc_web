@@ -7,16 +7,24 @@
         <div class="logo">
             <b>KOPI PAS</b>
         </div>
-        <div class="btn-logout ms-auto" @click="logout">
-            <a href="#"><button type="button" class="btn btn-primary m-5">Logout</button></a>
+        <div class="right-side">
+            <div class="text-capitalize">{{ user.username }}</div>
+            <div class="devider"></div>
+            <div class="text-capitalize">{{ user.role.name }}</div>
+            <div class="devider"></div>
+            <button class="btn btn-cream" @click="logout">LOGOUT</button>
         </div>
     </div>
   
 </template>
 
 <script>
+import axios from 'axios';
 import { AuthStore } from '../../stores/Auth';
 export default {
+    props: {
+        user: Object,
+    },
     methods: {
         toggleSidebar() {
             this.$emit('toggleClicked', true)
@@ -30,6 +38,9 @@ export default {
             })
 
         }
+    },
+    mounted() {
+        
     }
 }
 </script>

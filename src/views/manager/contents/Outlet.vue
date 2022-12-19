@@ -6,7 +6,7 @@
                 
             <div class="rounded shadow-sm p-3 bg-white">
 
-                <div class="container mb-5">
+                <div class="container mb-2">
                     <div class="row row-cols-2">
                         <div class="col-sm-7"><!-- + Add Button -->
                             <button type="button" class="btn btn-success" @click="openAddOutlet">

@@ -5,10 +5,10 @@ import Content from './Content.vue'
 </script>
 
 <template>
-    <Header @toggle-clicked="toggleSidebar" />
+    <Header @toggle-clicked="toggleSidebar" :user="user" v-if="user != null" />
     <div id="wrapper" class="hide">
-        <Sidebar/>
-        <Content/>
+        <Sidebar :user="user" v-if="user != null"/>
+        <Content :user="user" v-if="user != null"/>
     </div>
 </template>
 
@@ -18,7 +18,8 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            showSidebar: false
+            showSidebar: false,
+            user: null,
         }
     },
     mounted() {
@@ -46,6 +47,18 @@ export default {
                 this.showSidebar = true;
             }
         }
+    },
+    mounted() {
+        axios.get('/auth/me')
+        .then(res => {
+            if (res.data.status) {
+                this.user = res.data.body;
+            }
+        })
+        .catch(err => {
+            AuthStore().logout();
+            this.$router.replace({name: 'Login'})
+        })
     }
 }
 </script>

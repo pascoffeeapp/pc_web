@@ -15,7 +15,7 @@ const store = AuthStore();
             <div class="login">
                 <div class="form">
                     <h1>Sign In</h1>
-                    <div class="alert alert-danger small p-2 text-center">Username or password went wrong</div>
+                    <div class="alert alert-danger small p-2 text-center" v-if="loginFailed">Username or password went wrong</div>
                     <label for="username">Username</label>
                     <input id="username" type="text" @keydown.enter="login" placeholder="Enter Usename"  v-model="username">
                     <div class="small text-danger" v-for="(v, i) in errors.username" :key="i">{{v}}</div>

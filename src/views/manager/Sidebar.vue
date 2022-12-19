@@ -1,6 +1,6 @@
 <template>
     <div id="sidebar">
-        <router-link v-for="(v, i) in navigations" :key="i" :to="{name: v.route}" class="sidebar-item">
+        <router-link v-for="(v, i) in navigations" :key="i" :to="{name: v.route}" class="sidebar-item" ref="sidebar_item">
             <div class="icon"><i :class="`fa ${v.icon}`"></i></div>
             <div class="text">{{ v.text }}</div>
         </router-link>
@@ -8,9 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { AuthStore } from '../../stores/Auth';
-
 
 let navs = [
     {
@@ -58,37 +55,36 @@ let navs = [
 ]
 
 export default {
+    props: {
+        user: Object,
+    },
     data() {
         return {
             navigations: [],
-            user: null
         }
     },
     methods: {
+        setActive(e) {
+            // this.$refs.sidebar_item.forEach(el => {
+            //     el.classList.remove('active');
+            // });
+
+            // console.log(e.target.parentNode);
+        },
         loadNavs() {
-            axios.get('/role/'+this.user.id)
-            .then(res => {
-                if (res.data.status) {
-                    let perms = res.data.body.permissions;
-                    perms.forEach(perm => {
-                        navs.forEach(nav => {
-                            if (nav.permission == perm.key) {
-                                this.navigations.push(nav);
-                            }
-                        })
-                    })
-                }
+            let perms = this.user.role.permissions;
+            this.navigations = [];
+            perms.forEach(perm => {
+                navs.forEach(nav => {
+                    if (nav.permission == perm.key) {
+                        this.navigations.push(nav);
+                    }
+                })
             })
         }
     },
     mounted() {
-        axios.get('/auth/me')
-        .then(res => {
-            if (res.data.status) {
-                this.user = res.data.body;
-                this.loadNavs();
-            }
-        })
+        this.loadNavs();
     }
 }
 </script>
