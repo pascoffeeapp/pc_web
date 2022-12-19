@@ -41,7 +41,7 @@
                       <tr v-for="(v, i) in menu" :key="i">
                         <th class="text-center" scope="row">{{ i+1 }}</th>
                         <th>{{ v.name }}</th>
-                        <th>{{ v.price }}</th>
+                        <th>{{ formatCurrency(v.price) }}</th>
                         <th>{{ (v.status == 1) ? 'Available' : 'Unavailable' }}</th>
                         <th>
                             <a :href="`http://localhost:8000/uploads/${v.image}`" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
@@ -213,6 +213,12 @@ export default {
         }
     },
     methods: {
+        formatCurrency(number) {
+            return parseInt(number).toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+            })
+        },
         openAddMenu() {
             $('#modal-add-menu').modal('show');
         },

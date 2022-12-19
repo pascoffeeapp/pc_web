@@ -64,6 +64,9 @@ export default {
     },
     mounted() {
         this.getTables();
+        setInterval(() => {
+            this.getTables();
+        }, 10000)
     }
 }
 </script>

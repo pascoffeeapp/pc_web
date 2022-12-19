@@ -80,7 +80,7 @@
                         
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Outlet Name :</b></label>
-                            <input type="username" class="form-control" id="exampleFormControlInput1" placeholder="Outlet name" v-model="form_add.form.name">
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Outlet name" v-model="form_add.form.name">
                             <div class="small text-danger" v-for="(v, i) in form_add.errors.name" :key="i">{{ v }}</div>
                         </div>
                         
@@ -125,7 +125,7 @@
                         
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Outlet Name :</b></label>
-                            <input type="username" class="form-control" id="exampleFormControlInput1" placeholder="Outlet name" v-model="form_edit.form.name">
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Outlet name" v-model="form_edit.form.name">
                             <div class="small text-danger" v-for="(v, i) in form_edit.errors.name" :key="i">{{ v }}</div>
                         </div>
                         
