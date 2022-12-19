@@ -62,7 +62,6 @@ export default {
                 this.$router.push({name: 'Dashboard'})
             }, (err) => {
                 let res = err.response;
-                                console.log(err.response.data)
                 if (res) {
                     if (res.status == 403) {
                         for (const key in res.data[`body`]) {

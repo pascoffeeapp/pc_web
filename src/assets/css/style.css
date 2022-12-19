@@ -119,4 +119,33 @@
 
 .row > * {
   padding: 0;
+}
+
+.box-table {
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0.2rem rgba(0, 0, 0, 0.1);
+}
+.box-table .name {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.box-table .text {
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: rgb(57, 165, 53);
+  color: #fff;
+}
+.box-table.active {
+  cursor: pointer;
+}
+.box-table.active:hover {
+  background-color: #fafafa;
+}
+.box-table.active .text {
+  background-color: rgb(240, 83, 83);
 }/*# sourceMappingURL=style.css.map */

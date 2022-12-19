@@ -52,6 +52,12 @@ let navs = [
         icon: 'fa-shopping-bag',
         permission: 'manager.takeaway',
     },
+    {
+        route: 'Cashier',
+        text: 'Cashier',
+        icon: 'fa-cash-register',
+        permission: 'manager.cashier',
+    },
 ]
 
 export default {

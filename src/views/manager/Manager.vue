@@ -7,8 +7,8 @@ import Content from './Content.vue'
 <template>
     <Header @toggle-clicked="toggleSidebar" :user="user" v-if="user != null" />
     <div id="wrapper" class="hide">
-        <Sidebar :user="user" v-if="user != null"/>
-        <Content :user="user" v-if="user != null"/>
+        <Sidebar :user="user" :env="env" v-if="user != null"/>
+        <Content :user="user" :env="env"  v-if="user != null"/>
     </div>
 </template>
 
@@ -16,6 +16,9 @@ import Content from './Content.vue'
 import { AuthStore } from '../../stores/Auth';
 import axios from 'axios';
 export default {
+    props: {
+        env: Object,
+    },
     data() {
         return {
             showSidebar: false,
