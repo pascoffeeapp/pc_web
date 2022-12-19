@@ -16,12 +16,12 @@ let navs = [
         icon: 'fa-tachometer-alt',
         permission: 'manager.dashboard',
     },
-    {
-        route: 'Role',
-        text: 'Role',
-        icon: 'fa-user-shield',
-        permission: 'manager.role',
-    },
+    // {
+    //     route: 'Role',
+    //     text: 'Role',
+    //     icon: 'fa-user-shield',
+    //     permission: 'manager.role',
+    // },
     {
         route: 'User',
         text: 'User',

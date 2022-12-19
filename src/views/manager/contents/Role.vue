@@ -9,7 +9,7 @@
                 <div class="row row-cols-2">
                     <div class="col-sm-7"><!-- + Add Button -->
                         <button type="button" class="btn btn-success" @click="openAddRole">
-                            + Add
+                            <i class="fa fa-plus"></i> Add
                         </button>
                         
                         <div class="modal fade" id="modalAddRole" tabindex="-1" aria-labelledby="modalAddRoleLabel" aria-hidden="true">

@@ -10,7 +10,7 @@
                     <div class="row row-cols-2">
                         <div class="col-sm-7"><!-- + Add Button -->
                                 <button type="button" class="btn btn-success" @click="openAddUser">
-                                    + Add
+                                    <i class="fa fa-plus"></i> Add
                                 </button>
                                 
                                 <!-- Modal -->
@@ -67,25 +67,25 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                       <tr>
-                        <th class="col-sm-1">#</th>
+                        <th class="col-sm-1 text-center">#</th>
                         <th class="col-sm-5">Name</th>
                         <th class="col-sm-5">Role</th>
-                        <th class="col-sm-2">Edit</th>
-                        <th class="col-sm-2">Delete</th>
+                        <th class="col-sm-2 text-center">Edit</th>
+                        <th class="col-sm-2 text-center">Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(v, i) in users">
-                        <th scope="row">{{ i+1 }}</th>
+                        <th class="text-center" scope="row">{{ i+1 }}</th>
                         <th scope="row">{{ v.username }}</th>
                         <th scope="row">{{ v.role.name }}</th>
                         <td>
-                            <button type="button" :disabled="v.id == user.id" class="btn btn-warning w-100" @click="openEditUser(i)">
+                            <button type="button" :disabled="v.id == user.id" class="btn btn-warning w-100 btn-sm" @click="openEditUser(i)">
                                 <i class="fa fa-solid fa-pen-to-square"></i>
                             </button>
                         </td>
                         <td>
-                            <button type="button" :disabled="v.id == user.id" class="btn btn-danger w-100" @click="deleteUser(i)">
+                            <button type="button" :disabled="v.id == user.id" class="btn btn-danger w-100 btn-sm" @click="deleteUser(i)">
                                 <i class="fa fa-solid fa-trash-can"></i>
                             </button>
                         </td>

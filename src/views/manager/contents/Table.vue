@@ -11,7 +11,7 @@
                         <div class="col-sm-7">
                             <!-- + Add Button -->
                             <button type="button" class="btn btn-success" @click="openAddTable">
-                                    + Add
+                                <i class="fa fa-plus"></i> Add
                             </button>
 
                         </div>
@@ -25,18 +25,18 @@
                 </div>
 
                 <!--Table content-->
-                <table class="table table-bordered">
+                <table class="table table-bordered ">
                     <thead class="table-light">
                         <tr>
-                            <th class="col-sm-2">#</th>
+                            <th style="width:3%" class="col-sm-2 text-center">#</th>
                             <th class="col-sm-2">Code Table</th>
-                            <th class="col-sm-2">Edit</th>
-                            <th class="col-sm-2">Delete</th>
+                            <th class="col-sm-2 text-center">Edit</th>
+                            <th class="col-sm-2 text-center">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(v, i) in tables" :key="i">
-                            <td>{{ i+1 }}</td>
+                            <td class="text-center">{{ i+1 }}</td>
                             <td>{{ v.code }}</td>
                             <td>
                                 <button type="button" @click="openEditTable(i)" class="btn btn-sm w-100 btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModa2">

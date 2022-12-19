@@ -10,7 +10,7 @@
                     <div class="row row-cols-2">
                         <div class="col-sm-7"><!-- + Add Button -->
                             <button type="button" class="btn btn-success" @click="openAddOutlet">
-                                + Add Outlet
+                                <i class="fa fa-plus"></i> Add Outlet
                             </button>
                             
                         </div>
@@ -27,21 +27,21 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                       <tr>
-                        <th class="col-sm-1">#</th>
+                        <th class="col-sm-1 text-center">#</th>
                         <th class="col-sm-3">Name</th>
                         <th class="col-sm-4">Owner</th>
-                        <th class="col-sm-1">Picture</th>
-                        <th class="col-sm-1">Edit</th>
-                        <th class="col-sm-1">Delete</th>
+                        <th class="col-sm-1 text-center">Picture</th>
+                        <th class="col-sm-1 text-center">Edit</th>
+                        <th class="col-sm-1 text-center">Delete</th>
                       </tr>
                     </thead>
                     <tbody>
 
                       <tr v-for="(v, i) in outlets" :key="i">
-                        <th scope="row">{{ i+1 }}</th>
+                        <th class="text-center" scope="row">{{ i+1 }}</th>
                         <th>{{ v.name }}</th>
                         <th>{{ v.owner.username }}</th>
-                        <th>
+                        <th >
                             <a :href="env.baseURL+'/uploads/'+v.image" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
                                 <i class="fa fa-image"></i>
                             </a>
