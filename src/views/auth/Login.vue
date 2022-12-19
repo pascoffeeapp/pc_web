@@ -15,11 +15,15 @@ const store = AuthStore();
             <div class="login">
                 <div class="form">
                     <h1>Sign In</h1>
+                    <div class="alert alert-danger small p-2 text-center" v-if="loginFailed">Username or password went wrong</div>
                     <label for="username">Username</label>
                     <input id="username" type="text" @keydown.enter="login" placeholder="Enter Usename"  v-model="username">
-                    <label for="password">Password</label>
+                    <div class="small text-danger" v-for="(v, i) in errors.username" :key="i">{{v}}</div>
+
+                    <label for="password" class="mt-3">Password</label>
                     <input id="password" type="password" @keydown.enter="login" placeholder="Enter Password" v-model="password">
-                    <button @click="login">Sign In</button>
+                    <div class="small text-danger" v-for="(v, i) in errors.password" :key="i">{{v}}</div>
+                    <button class="mt-3" @click="login">Sign In</button>
                 </div>
             </div>
             
@@ -36,6 +40,7 @@ export default {
             store: null,
             username: '',
             password: '',
+            loginFailed: false,
             errors: {
                 username: [],
                 password: [],
@@ -55,8 +60,20 @@ export default {
                 password: this.password,
             }, (data) => {
                 this.$router.push({name: 'Dashboard'})
-            }, (data) => {
-                console.log(data)
+            }, (err) => {
+                let res = err.response;
+                                console.log(err.response.data)
+                if (res) {
+                    if (res.status == 403) {
+                        for (const key in res.data[`body`]) {
+                            if (Object.hasOwnProperty.call(res.data[`body`], key)) {
+                                this.errors[key] = res.data[`body`][key];
+                            }
+                        }
+                    }else {
+                        this.loginFailed = true;
+                    }
+                }
             })
         },
     }

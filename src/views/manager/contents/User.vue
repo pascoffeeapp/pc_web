@@ -6,7 +6,7 @@
                 
             <div class="rounded shadow-sm p-3 bg-white">
 
-                <div class="container mb-5">
+                <div class="container mb-2">
                     <div class="row row-cols-2">
                         <div class="col-sm-7"><!-- + Add Button -->
                                 <button type="button" class="btn btn-success" @click="openAddUser">
@@ -80,12 +80,12 @@
                         <th scope="row">{{ v.username }}</th>
                         <th scope="row">{{ v.role.name }}</th>
                         <td>
-                            <button type="button" class="btn btn-warning w-100" @click="openEditUser(i)">
+                            <button type="button" :disabled="v.id == user.id" class="btn btn-warning w-100" @click="openEditUser(i)">
                                 <i class="fa fa-solid fa-pen-to-square"></i>
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger w-100" @click="deleteUser(i)">
+                            <button type="button" :disabled="v.id == user.id" class="btn btn-danger w-100" @click="deleteUser(i)">
                                 <i class="fa fa-solid fa-trash-can"></i>
                             </button>
                         </td>
@@ -138,12 +138,11 @@
 </template>
 
 <script>
-import ModalAddTable from './modals/ModalAddTable.vue';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 export default {
-    components: {
-        ModalAddTable
+    props: {
+        user: Object,
     },
     data() {
         return {
@@ -200,6 +199,11 @@ export default {
                 }
             })
             .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
                 if (err) {
                     let data = err.response.data;
                     if (err.response.status == 403) {
@@ -245,6 +249,13 @@ export default {
                     })
                 }
             })
+            .catch(err => {
+                if (err.response) {
+                    if (err.response.status != 403) {
+                        Swal.fire('GAGAL', err.response.data.message, 'error')
+                    }
+                }
+            })
         },
         openAddUser() {
             this.getRoles();
@@ -281,6 +292,11 @@ export default {
                     }
                 })
                 .catch(err => {
+                    if (err.response) {
+                        if (err.response.status != 403) {
+                            Swal.fire('GAGAL', err.response.data.message, 'error')
+                        }
+                    }
                     if (err) {
                         let data = err.response.data;
                         if (err.response.status == 403) {
@@ -294,7 +310,7 @@ export default {
         }
     },
     mounted() {
-        this.getData()
+        this.getData();
     },
 }
 </script>

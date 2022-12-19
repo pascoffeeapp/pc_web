@@ -36,6 +36,28 @@
             color: #fff;
         }
     }
+    .right-side {
+        margin: auto;
+        margin-right: 0;
+        padding-right: 1rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        .devider {
+            height: 2rem;
+            border-right: 1px solid rgba($color: #ffffff, $alpha: .5);
+        }
+    }
+
+}
+.btn.btn-cream {
+    background-color: #F8EDE3;
+    border: none;
+}
+.btn.btn-cream:hover {
+    background-color: rgb(219, 200, 180);
+    border: none !important;
 }
 #wrapper {
     display: grid;
@@ -76,7 +98,7 @@
         .sidebar-item:hover {
             background-color: #F8EDE3;
         }
-        .sidebar-item.active {
+        .sidebar-item.router-link-active {
             background-color: #594545;
             color: #F8EDE3;
         }
@@ -102,4 +124,8 @@
             }
         }
     }
+}
+
+.row > * {
+    padding: 0;
 }
