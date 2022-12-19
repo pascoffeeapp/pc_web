@@ -10,6 +10,7 @@ import User from "./views/manager/contents/User.vue"
 import Wallet from "./views/manager/contents/Wallet.vue"
 import NotFound from "./views/manager/contents/NotFound.vue"
 import TakeAway from "./views/manager/contents/TakeAway.vue"
+import Cashier from "./views/manager/contents/Cashier.vue"
 
 import Login from "./views/auth/Login.vue"
 import Home from "./views/main/Home.vue"
@@ -97,6 +98,13 @@ const routes=[
                 name: 'Takeaway',
                 components: {
                     contents:  TakeAway,
+                }
+            },
+            {
+                path: 'cashier',
+                name: 'Cashier',
+                components: {
+                    contents:  Cashier,
                 }
             },
         ],

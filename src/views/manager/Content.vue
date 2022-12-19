@@ -1,6 +1,6 @@
 <template>
         <div id="content">
-        <router-view name="contents" :user="user"></router-view>
+        <router-view name="contents" :env="env" :user="user"></router-view>
         </div>
 </template>
 
@@ -8,6 +8,7 @@
 export default {
         props: {
                 user: Object,
+                env: Object,
         }
 }
 </script>

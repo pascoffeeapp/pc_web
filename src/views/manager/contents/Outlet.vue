@@ -42,7 +42,7 @@
                         <th>{{ v.name }}</th>
                         <th>{{ v.owner.username }}</th>
                         <th>
-                            <a :href="`http://localhost:8000/uploads/${v.image}`" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
+                            <a :href="env.baseURL+'/uploads/'+v.image" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
                                 <i class="fa fa-image"></i>
                             </a>
                         </th>
@@ -164,9 +164,11 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default {
+    props: {
+        env: Object,
+    },
     data() {
         return {
-            baseUrl: '',
             outlets: [],
             users: [],
             form_add: {
@@ -345,7 +347,6 @@ export default {
     },
     mounted() {
         this.loadOutlets();
-        this.baseUrl = Axios.defaults.baseURL;
     }
 }
 </script>

@@ -129,3 +129,39 @@
 .row > * {
     padding: 0;
 }
+
+.box-table {
+    width: 100%;
+    padding: 3rem;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px .2rem rgba(0, 0, 0, 0.1);
+
+    .name {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: .5rem;
+    }
+
+    .text {
+        padding: .2rem;
+        border-radius: 4px;
+        background-color: rgb(57, 165, 53);
+        color: #fff;
+    }
+
+    &.active {
+        cursor: pointer;
+        
+        &:hover {
+            background-color: #fafafa;
+        }
+
+        .text{
+            background-color: rgb(240, 83, 83);    
+        }
+    }
+
+
+}
