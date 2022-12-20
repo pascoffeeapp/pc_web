@@ -263,12 +263,12 @@ export default {
             .catch(err => {
                 let res = err.response;
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
                 if (res) {
-                    if (res.status == 403) {
+                    if (res.status == 400) {
                         for (const key in res.data[`body`]) {
                             if (Object.hasOwnProperty.call(res.data[`body`], key)) {
                                 this.form_add.errors[key] = res.data[`body`][key];
@@ -302,12 +302,12 @@ export default {
             .catch(err => {
                 let res = err.response;
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
                 if (res) {
-                    if (res.status == 403) {
+                    if (res.status == 400) {
                         for (const key in res.data[`body`]) {
                             if (Object.hasOwnProperty.call(res.data[`body`], key)) {
                                 this.form_edit.errors[key] = res.data[`body`][key];
@@ -338,7 +338,7 @@ export default {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
