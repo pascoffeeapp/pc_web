@@ -200,13 +200,13 @@ export default {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
                 if (err) {
                     let data = err.response.data;
-                    if (err.response.status == 403) {
+                    if (err.response.status == 400) {
                         for (const key in this.errors) {
                             this.form_add.errors[key] = data.body[key];
                         }
@@ -251,7 +251,7 @@ export default {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
@@ -293,13 +293,13 @@ export default {
                 })
                 .catch(err => {
                     if (err.response) {
-                        if (err.response.status != 403) {
+                        if (err.response.status != 400) {
                             Swal.fire('GAGAL', err.response.data.message, 'error')
                         }
                     }
                     if (err) {
                         let data = err.response.data;
-                        if (err.response.status == 403) {
+                        if (err.response.status == 400) {
                             for (const key in this.errors) {
                                 this.form_edit.errors[key] = data.body[key];
                             }

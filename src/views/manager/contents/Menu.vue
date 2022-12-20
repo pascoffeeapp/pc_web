@@ -41,10 +41,10 @@
                       <tr v-for="(v, i) in menu" :key="i">
                         <th class="text-center" scope="row">{{ i+1 }}</th>
                         <th>{{ v.name }}</th>
-                        <th>{{ v.price }}</th>
+                        <th>{{ formatCurrency(v.price) }}</th>
                         <th>{{ (v.status == 1) ? 'Available' : 'Unavailable' }}</th>
                         <th>
-                            <a :href="`http://localhost:8000/uploads/${v.image}`" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
+                            <a :href="`${env.baseURL}/uploads/${v.image}`" target="_blank" class="btn btn-success w-100" rel="noopener noreferrer">
                                 <i class="fa fa-image"></i>
                             </a>
                         </th>
@@ -173,6 +173,7 @@ import { AuthStore } from '../../../stores/Auth';
 export default {
     props: {
         user: Object,
+        env: Object,
     },
     data() {
         return {
@@ -213,6 +214,12 @@ export default {
         }
     },
     methods: {
+        formatCurrency(number) {
+            return parseInt(number).toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+            })
+        },
         openAddMenu() {
             $('#modal-add-menu').modal('show');
         },
@@ -255,12 +262,12 @@ export default {
             .catch(err => {
                 let res = err.response;
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
                 if (res) {
-                    if (res.status == 403) {
+                    if (res.status == 400) {
                         for (const key in res.data[`body`]) {
                             console.log(res.data[`body`])
                             if (Object.hasOwnProperty.call(res.data[`body`], key)) {
@@ -298,12 +305,12 @@ export default {
             .catch(err => {
                 let res = err.response;
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
                 if (res) {
-                    if (res.status == 403) {
+                    if (res.status == 400) {
                         for (const key in res.data[`body`]) {
                             if (Object.hasOwnProperty.call(res.data[`body`], key)) {
                                 this.form_edit.errors[key] = res.data[`body`][key];
@@ -334,7 +341,7 @@ export default {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status != 403) {
+                    if (err.response.status != 400) {
                         Swal.fire('GAGAL', err.response.data.message, 'error')
                     }
                 }
