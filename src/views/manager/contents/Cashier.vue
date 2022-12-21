@@ -1,8 +1,8 @@
 <template>
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-12">
-                <div :class="`box-table ${v.status ? 'active' : ''}`" v-for="(v, i) in tables" :key="i" @click="openModalOrder(i)">
+            <div class="col-lg-4 col-md-6 col-12 p-3" v-for="(v, i) in tables" :key="i" >
+                <div :class="`box-table ${v.status ? 'active' : ''}`" @click="openModalOrder(i, v.status)">
                     <div class="name text-uppercase">{{ v.code }}</div>
                     <div class="text">{{ v.status ? 'RESERVED' : 'FREE'}}</div>
                 </div>
@@ -105,10 +105,12 @@ export default {
                 })
             })
         },
-        openModalOrder(index) {
-            this.index = index;
-            this.getOrder();
-            $('#modal-show-order').modal('show');
+        openModalOrder(index, isFree = false) {
+            if (isFree) {
+                this.index = index;
+                this.getOrder();
+                $('#modal-show-order').modal('show');
+            }
         },
         checkout() {
             let order = this.order;
