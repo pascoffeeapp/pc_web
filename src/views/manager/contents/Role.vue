@@ -11,53 +11,6 @@
                         <button type="button" class="btn btn-success" @click="openAddRole">
                             <i class="fa fa-plus"></i> Add
                         </button>
-                        
-                        <div class="modal fade" id="modalAddRole" tabindex="-1" aria-labelledby="modalAddRoleLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modalAddRoleLabel">Tambah Peran</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            
-                                            <div class="mb-3">
-                                                <label for="name" class="form-label"><b>Name :</b></label>
-                                                <input type="text" class="form-control" v-model="form_add.form.name" id="name" placeholder="name">
-                                                <div class="small text-danger" v-for="(v, i) in form_add.errors.name">{{v}}</div>
-                                            </div>
-                                            
-                                            <div class="mb-2"><b>Permissions:</b></div>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Kunci</th>
-                                                        <th>Description</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="(v, i) in permissions" :key="i">
-                                                        <td>
-                                                            <input type="checkbox" :value="v.id" v-model="form_add.form.permissions">
-                                                        </td>
-                                                        <td>
-                                                            {{v.key}}
-                                                        </td>
-                                                        <td>
-                                                            {{v.description}}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="small text-danger" v-for="(v, i) in form_add.errors.permissions">{{v}}</div>
-                                        </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" @click="addRole">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-sm-3 ms-auto">
                         <form class="d-flex" role="search">
@@ -147,6 +100,52 @@
             </div>
         </div>
 
+        <div class="modal fade" id="modalAddRole" tabindex="-1" aria-labelledby="modalAddRoleLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalAddRoleLabel">Tambah Peran</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="mb-3">
+                                <label for="name" class="form-label"><b>Name :</b></label>
+                                <input type="text" class="form-control" v-model="form_add.form.name" id="name" placeholder="name">
+                                <div class="small text-danger" v-for="(v, i) in form_add.errors.name">{{v}}</div>
+                            </div>
+                            
+                            <div class="mb-2"><b>Permissions:</b></div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kunci</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(v, i) in permissions" :key="i">
+                                        <td>
+                                            <input type="checkbox" :value="v.id" v-model="form_add.form.permissions">
+                                        </td>
+                                        <td>
+                                            {{v.key}}
+                                        </td>
+                                        <td>
+                                            {{v.description}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="small text-danger" v-for="(v, i) in form_add.errors.permissions">{{v}}</div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" @click="addRole">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
