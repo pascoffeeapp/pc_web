@@ -4,8 +4,11 @@
         <div id="toggle" @click="toggleSidebar">
             <i class="fa fa-bars"></i>
         </div>
-        <div class="logo">
-            <b>KOPI PAS</b>
+        <div class="logo-kopi">
+            <b>KOPI</b> 
+        </div>
+        <div class="logo-pas">
+            <b> PAS</b>
         </div>
         <div class="right-side">
             <div class="text-capitalize">{{ user.username }}</div>

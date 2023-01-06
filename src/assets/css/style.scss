@@ -1,6 +1,6 @@
 #header {
     height: 4rem;
-    background-color: #815B5B;
+    background-color: #6A4334;
     color: #F8EDE3;
     display: flex;
     align-items: center;
@@ -26,15 +26,19 @@
         border-radius: 50%;
     }
 
-    .logo {
+    .logo-kopi {
         font-size: 1.5em;
         padding-left: 1rem;
-        font-family: Merienda;
+        font-family: montserrat;
         color: #D0B8A8;
 
-        b {
-            color: #fff;
-        }
+    }
+    .logo-pas {
+        font-size: 1.5em;
+        padding-left: .5rem;
+        font-family: montserrat;
+        color: #ffffff;
+
     }
     .right-side {
         margin: auto;
@@ -55,7 +59,7 @@
     background-color: #F8EDE3;
     border: none;
 }
-.btn.btn-cream:hover {
+.btn.btn-cream:hover { 
     background-color: rgb(219, 200, 180);
     border: none !important;
 }
@@ -66,12 +70,13 @@
     transition: .3s;
     
     #sidebar {
+        padding-top: 150px;
         background-color: #D0B8A8;
         transition: .3s;
-        background-image: url('/src/assets/img/illustration.png');
-        background-size:  100%;
+        background-image: url('/src/assets/img/logo_dasboard1.png');
+        background-size:  40%;
         background-repeat: no-repeat;
-        background-position: bottom;
+        background-position: top;
         .sidebar-item {
             text-decoration: none;
             display: grid;
@@ -81,7 +86,7 @@
             width: 100%;
             color: #594545;
             transition: .2s;
-            border-radius: 0 8px 8px 0;
+            border-radius: 10px;
             
             .icon {
                 font-size: 1.5em;
@@ -99,7 +104,7 @@
             background-color: #F8EDE3;
         }
         .sidebar-item.router-link-active {
-            background-color: #594545;
+            background-color: #6A4334;
             color: #F8EDE3;
         }
         .devider {
@@ -111,18 +116,22 @@
     #content {
         transition: .3s;
         background-color: #FFF8EA;
-        background-image: url('/src/assets/img/coffee_content.svg');
+        // background-image: url('/src/assets/img/coffee_content.svg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: right bottom;
     }
     &.hide {
-        grid-template-columns: 4rem auto;
-        .sidebar-item {
-            .text {
-                opacity: 0;
+        #sidebar{
+            background-size: 0;
+            padding: 2px 0;
+            .sidebar-item {
+                // .text {
+                //     opacity: 0;
+                // }
             }
         }
+        grid-template-columns: 4rem auto;
     }
 }
 

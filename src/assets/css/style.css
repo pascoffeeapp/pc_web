@@ -1,6 +1,6 @@
 #header {
   height: 4rem;
-  background-color: #815B5B;
+  background-color: #6A4334;
   color: #F8EDE3;
   display: flex;
   align-items: center;
@@ -23,14 +23,17 @@
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
-#header .logo {
+#header .logo-kopi {
   font-size: 1.5em;
   padding-left: 1rem;
-  font-family: Merienda;
+  font-family: montserrat;
   color: #D0B8A8;
 }
-#header .logo b {
-  color: #fff;
+#header .logo-pas {
+  font-size: 1.5em;
+  padding-left: 0.5rem;
+  font-family: montserrat;
+  color: #ffffff;
 }
 #header .right-side {
   margin: auto;
@@ -62,12 +65,13 @@
   transition: 0.3s;
 }
 #wrapper #sidebar {
+  padding-top: 150px;
   background-color: #D0B8A8;
   transition: 0.3s;
-  background-image: url("/src/assets/img/illustration.png");
-  background-size: 100%;
+  background-image: url("/src/assets/img/logo_dasboard1.png");
+  background-size: 40%;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: top;
 }
 #wrapper #sidebar .sidebar-item {
   text-decoration: none;
@@ -78,7 +82,7 @@
   width: 100%;
   color: #594545;
   transition: 0.2s;
-  border-radius: 0 8px 8px 0;
+  border-radius: 10px;
 }
 #wrapper #sidebar .sidebar-item .icon {
   font-size: 1.5em;
@@ -94,7 +98,7 @@
   background-color: #F8EDE3;
 }
 #wrapper #sidebar .sidebar-item.router-link-active {
-  background-color: #594545;
+  background-color: #6A4334;
   color: #F8EDE3;
 }
 #wrapper #sidebar .devider {
@@ -105,7 +109,6 @@
 #wrapper #content {
   transition: 0.3s;
   background-color: #FFF8EA;
-  background-image: url("/src/assets/img/coffee_content.svg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: right bottom;
@@ -113,10 +116,10 @@
 #wrapper.hide {
   grid-template-columns: 4rem auto;
 }
-#wrapper.hide .sidebar-item .text {
-  opacity: 0;
+#wrapper.hide #sidebar {
+  background-size: 0;
+  padding: 2px 0;
 }
-
 .row > * {
   padding: 0;
 }
