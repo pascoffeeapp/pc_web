@@ -264,13 +264,13 @@
                                     {{v.name}}
                                 </td>
                                 <td class="d-flex align-items-center">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-primary btn-sm" @click="reduceMenu(v.id, i)">
                                         <i class="fa fa-minus fa-fw"></i>
                                     </button>
                                     <div class="px-3">
-                                        <b>0</b>
+                                        <b>{{ getQty(v.id) }}</b>
                                     </div>
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-primary btn-sm" @click="addMenu(v.id, i)">
                                         <i class="fa fa-eye fa-plus"></i>
                                     </button>
                                 </td>
@@ -327,6 +327,51 @@ export default {
                 this.orders = res.data.body;
             })
         },
+        getQty(menu_id) {
+            let qty = 0;
+            this.order.items.forEach((v, i) => {
+                // console.log(v.item_id);
+                if (v.id == menu_id) qty += parseInt(v.qty);
+            })
+            return qty;
+        },
+        addMenu(menu_id, index) {
+            axios.post(`/order/${this.order.id}/item`, {
+                menu_id: menu_id, 
+                qty: this.getQty(menu_id) + 1,
+            })
+            .then(res => {
+                if (this.getQty(menu_id) <= 0) {
+                    this.order.items.push(res.data.body);
+                }else {
+                    this.order.items[index].qty = res.data.body['qty'];
+                }
+                this.getTotal();
+            });
+        },
+        reduceMenu(menu_id, index) {
+            if (this.getQty(menu_id) - 1 == 0) {
+                let item_id = null;
+                this.order.items.forEach((v, i) => {
+                    if (v.id == menu_id) item_id = v.item_id;
+                })
+                if (item_id) {
+                    axios.delete(`/order/${this.order.id}/item/${item_id}`)
+                    .then(res => {
+                        this.order.items.splice(index, 1);
+                        this.getTotal();
+                    });
+                }
+            }else {
+                axios.post(`/order/${this.order.id}/item`, {
+                    menu_id: menu_id, qty: this.getQty(menu_id) - 1,
+                })
+                .then(res => {
+                    this.order.items[index].qty = res.data.body['qty'];
+                    this.getTotal();
+                });
+            }
+        },
         async getOrder() {
             let order = this.orders[this.index];
             await axios.get(`/order/${order.id}`)
@@ -334,11 +379,14 @@ export default {
                 this.order = res.data.body;
                 this.costumer = res.data.body.costumer.name;
                 this.items = res.data.body['items'];
-                this.total = 0;
-                this.items.forEach(item => {
-                    this.total += parseInt(item.price) * parseInt(item.qty);
-                })
+                this.getTotal();
             })
+        },
+        getTotal() {
+            this.total = 0;
+            this.items.forEach(item => {
+                this.total += parseInt(item.price) * parseInt(item.qty);
+            })  
         },
         async getOutlet() {
             await axios.get(`/outlet`)
